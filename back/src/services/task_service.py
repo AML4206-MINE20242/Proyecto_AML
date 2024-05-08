@@ -1,0 +1,57 @@
+from datetime import datetime
+import shutil
+import uuid
+from fastapi import File, HTTPException, UploadFile
+from fastapi.responses import FileResponse
+from sqlalchemy.orm import Session
+import os
+import sys
+sys.path.append('../')
+from back.src.schemas.task import TaskCreate, TaskRead
+from back.src.services.user_service import get_user_by_email
+from back.src.models.task import Task as TaskModel
+
+
+def get_task_by_id(db: Session, task_id: str) -> TaskRead:
+    task = db.query(TaskModel).filter(TaskModel.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task
+
+def create_task(db: Session, task: TaskCreate) -> TaskRead:
+
+    if not task.name:
+        raise HTTPException(status_code= 404, detail="Task name must be provided")
+    
+    if not task.user_email:
+        raise HTTPException(status_code= 404, detail="User email must be provided")
+    user = get_user_by_email(db, task.user_email)
+    if not user:
+        raise HTTPException(status_code= 404, detail="User email does not exist")
+    
+    #TODO
+    disease_prediction = "None"
+    
+    new_task = TaskModel(
+        id=str(uuid.uuid4()),
+        name = task.name,
+        time_stamp = datetime.now(),
+        user_email = task.user_email,
+        prediction = disease_prediction
+    )
+
+    db.add(new_task)
+    db.commit()
+    db.refresh(new_task)
+
+    #TODO
+    #os.remove()
+    return new_task
+
+
+def delete_task(db: Session, task_id: str) -> TaskRead:
+    task = get_task_by_id(db, task_id)
+    db.delete(task)
+    db.commit()
+
+
