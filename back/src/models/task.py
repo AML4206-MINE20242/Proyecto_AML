@@ -17,6 +17,7 @@ class Task(Base):
     status = Column(Enum(TaskStatus), default=TaskStatus.UPLOADED)
     time_stamp = Column(DateTime)
     prediction = Column(String)
+    input_path = Column(String)
 
     user_email = Column(String, ForeignKey("users.email"))
 

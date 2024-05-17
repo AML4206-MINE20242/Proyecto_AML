@@ -37,7 +37,8 @@ def create_task(db: Session, task: TaskCreate) -> TaskRead:
         name = task.name,
         time_stamp = datetime.now(),
         user_email = task.user_email,
-        prediction = disease_prediction
+        prediction = disease_prediction,
+        input_path = task.input_path
     )
 
     db.add(new_task)

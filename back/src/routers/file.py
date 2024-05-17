@@ -1,3 +1,4 @@
+import uuid
 from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.security import HTTPAuthorizationCredentials
 from fastapi_jwt_auth import AuthJWT
@@ -25,13 +26,15 @@ async def upload_file(file: UploadFile = File(...)):
         if not os.path.exists(UPLOAD_DIR):
             os.makedirs(UPLOAD_DIR)
 
+        extension = file.filename.split(".")[-1]
+        id = str(uuid.uuid4())
         # Crear la ruta completa del archivo en la carpeta uploadsCopy
-        file_path = os.path.join(UPLOAD_DIR, file.filename)
+        file_path = os.path.join(UPLOAD_DIR, id + "." + extension)
 
         # Guardar el archivo en la carpeta uploadsCopy
         with open(file_path, "wb") as f:
             f.write(contents)
 
-        return {"filename": file.filename}
+        return {"filename": id + "." + extension}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
