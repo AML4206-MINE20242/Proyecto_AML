@@ -13,17 +13,23 @@ DB_PASSWORD = settings.DB_PASSWORD
 DB_HOST = settings.DB_HOST
 DB_PORT = settings.DB_PORT
 
-engine = create_engine(url=f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
+
+SQLALCHEMY_DATABASE_URL = "sqlite:///./chest_disease_detection.db"
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, 
+    connect_args={"check_same_thread": False}
+)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
+
 def get_db():
     db = SessionLocal()
     try:
         yield db
-    except SQLAlchemyError as e:
-        print(f"Database error: {e}")  # Para manejar-identificar errores en la DB
     finally:
         db.close()
+
