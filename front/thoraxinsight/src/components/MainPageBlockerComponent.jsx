@@ -52,7 +52,7 @@ export default function MainPageBlockerComponent({ children, reversed }) {
             <Button variant="outlined" color="text" href="/signup" sx={{ mt: 2 , color: 'text.primary'}}>
               Get Started
             </Button>
-            <Link href="/signin" sx={{ mt: 1, color: 'text.primary' }}>
+            <Link href="/login" sx={{ mt: 1, color: 'text.primary' }}>
               Already a member? Sign in
             </Link>
           </Box>
