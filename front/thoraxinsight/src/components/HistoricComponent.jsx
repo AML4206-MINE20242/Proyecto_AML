@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider} from '@mui/material/styles';
 import { CssBaseline, Grid } from '@mui/material';
 import theme from '../styles/theme';
 
@@ -15,16 +15,6 @@ import {
   Paper,
 } from '@mui/material';
 
-const customTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#00008B', // Dark blue color
-    },
-    text: {
-      primary: '#000', // Black color for text
-    },
-  },
-});
 
 const YourImages = () => {
   const [tasks, setTasks] = useState([]);

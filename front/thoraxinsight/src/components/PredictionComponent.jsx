@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Box, Button, Container, Typography, CircularProgress, Avatar, Grid, TextField } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { styled, ThemeProvider } from '@mui/system';
@@ -72,6 +71,7 @@ const PredictionComponent = () => {
       alert(error.message);
     } finally {
       setLoading(false);
+      window.location.href = "/";
     }
   };
   
@@ -121,14 +121,34 @@ const PredictionComponent = () => {
                 />
               </Box>
             )}
-            <TextField
-              id="taskname"
-              label="Task Name"
-              variant="outlined"
-              margin="normal"
-              value={taskname}
-              onChange={(e) => setTaskname(e.target.value)}
-            />
+                       <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Task Name"
+                name="task"
+                autoComplete="taskname"
+                autoFocus
+                value={taskname}
+                onChange={(e) => setTaskname(e.target.value)}
+                sx={{
+                  '& label.Mui-focused': {
+                    color: 'text.secondary',
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: 'lightgray',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: 'text.secondary',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'text.secondary',
+                    },
+                  },
+                }}
+              />
             <Button
               variant="contained"
               color="text"
@@ -149,9 +169,9 @@ const PredictionComponent = () => {
               Delete
             </Button>
             {prediction && (
-              <Box sx={{ mt: 4, textAlign: 'center' }}>
-                <Typography variant="h5">Predicción:</Typography>
-                <Typography variant="body1">{prediction}</Typography>
+              <Box sx={{ mt: 4, textAlign: 'center'}}>
+                <Typography variant="h5" sx={{color:"text.secondary"}}>Predicción:</Typography>
+                <Typography variant="body1" sx={{color:"text.secondary"}}>{prediction}</Typography>
               </Box>
             )}
           </Box>

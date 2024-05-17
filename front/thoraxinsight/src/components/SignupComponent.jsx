@@ -73,6 +73,7 @@ export default function SignUp() {
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("signedIn", true);
       localStorage.setItem("username", data.username);
+      localStorage.setItem("email", data.email);
       window.location.href = "/";
     } catch (error) {
       console.error('There has been a problem with your fetch operation:', error);

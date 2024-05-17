@@ -42,7 +42,7 @@ function ResponsiveAppBar() {
     setSignedIn(false);
     setUsername('');
     handleMenuClose();
-    navigate('/');
+    window.location.href = "/";
   };
 
   const renderButtons = () => {
