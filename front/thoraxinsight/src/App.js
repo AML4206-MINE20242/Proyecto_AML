@@ -4,6 +4,7 @@ import SignupComponent from './components/SignupComponent';
 import PredictionComponent from './components/PredictionComponent';
 import ResponsiveAppBar from './components/HeaderComponent';
 import MainPageBlockerComponent from './components/MainPageBlockerComponent';
+import HistoricComponent from './components/HistoricComponent';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/signup" element={<SignupComponent/>} />
         <Route path="/predict" element={<PredictionComponent/>} />
         <Route path="/" element={<MainPageBlockerComponent/>} />
+        <Route path="/historic" element={<HistoricComponent/>} />
       </Routes>
     </BrowserRouter>
   );

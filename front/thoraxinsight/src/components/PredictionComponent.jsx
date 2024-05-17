@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Box, Button, Container, Typography, CircularProgress, Avatar, Grid } from '@mui/material';
+import { Box, Button, Container, Typography, CircularProgress, Avatar, Grid, TextField } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { styled, ThemeProvider } from '@mui/system';
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
-import theme from '../styles/theme'; // Asegúrate de importar el mismo tema
+import theme from '../styles/theme'; // Make sure to import the same theme
 import DeleteIcon from '@mui/icons-material/Delete';
 import '../styles/PredictionComponent.css';
+
 const StyledInput = styled('input')({
   display: 'none',
 });
@@ -15,7 +16,7 @@ const PredictionComponent = () => {
   const [file, setFile] = useState(null);
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const [taskname, setTaskname] = useState('');
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
     setPrediction(null); // Clear the previous prediction when a new file is selected
@@ -24,22 +25,57 @@ const PredictionComponent = () => {
   const handlePredict = async () => {
     const formData = new FormData();
     formData.append('file', file);
-
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
     setLoading(true);
-
+  
     try {
-      const response = await axios.post('/api/upload', formData, {
+      // Upload file using Fetch API
+      const uploadResponse = await fetch('http://localhost:8000/files/uploadfile', {
+        method: 'POST',
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`,
         },
+        body: formData, // Pass formData directly as the body
       });
-      setPrediction(response.data.prediction);
+  
+      if (!uploadResponse.ok) {
+        throw new Error('Failed to upload file');
+      }
+  
+      const uploadData = await uploadResponse.json();
+      const uploadDataPath = await `uploads/${uploadData.filename}`;
+      console.log(uploadDataPath);
+  
+      // Now send the required data to another endpoint
+      const taskResponse = await fetch(`http://localhost:8000/tasks/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body:JSON.stringify({
+          name: taskname,
+          user_email: email,
+          input_path: uploadDataPath,
+        }),
+      });
+  
+      if (!taskResponse.ok) {
+        throw new Error('Failed to create task');
+      }
+  
+      const taskData = await taskResponse.json();
+      console.log(taskData.prediction);
+      setPrediction(taskData.prediction);
     } catch (error) {
-      alert(error.response.data.detail);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
   };
+  
+  
 
   const handleReset = () => {
     setFile(null);
@@ -49,8 +85,8 @@ const PredictionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
-      <CssBaseline />
-        <Container maxWidth="sm" sx={{ mt: 4}}>
+        <CssBaseline />
+        <Container maxWidth="sm" sx={{ mt: 4 }}>
           <Box
             sx={{
               display: 'flex',
@@ -85,12 +121,20 @@ const PredictionComponent = () => {
                 />
               </Box>
             )}
+            <TextField
+              id="taskname"
+              label="Task Name"
+              variant="outlined"
+              margin="normal"
+              value={taskname}
+              onChange={(e) => setTaskname(e.target.value)}
+            />
             <Button
               variant="contained"
               color="text"
               onClick={handlePredict}
               sx={{ mt: 3, bgcolor: 'success.main', '&:hover': { bgcolor: 'secondary.main' } }}
-              disabled={!file || loading}
+              disabled={!file || loading || !taskname}
             >
               {loading ? <CircularProgress size={24} /> : 'Predict'}
             </Button>
