@@ -113,7 +113,7 @@ const YourImages = () => {
                                             sx={{ color: "text.secondary" }}
                                         >
                                             <img
-                                                src={`http://localhost:8000/${task.input_path}`}
+                                                src={`https://back-zu3yqmmklq-uc.a.run.app/${task.input_path}`}
                                                 alt={task.name}
                                                 style={{
                                                     width: "100px",

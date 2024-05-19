@@ -12,6 +12,8 @@ WORKDIR /front
 
 COPY . /front
 
+WORKDIR /front/thoraxinsight
+
 RUN npm install
 
 EXPOSE 3000
