@@ -28,12 +28,11 @@ def create_task(db: Session, task: TaskCreate) -> TaskRead:
     user = get_user_by_email(db, task.user_email)
     if not user:
         raise HTTPException(status_code= 404, detail="User email does not exist")
-    print(task.input_path.split("/")[-1])
-    disease_prediction, disease_probability = classify_image(task.input_path.split("/")[-1])
+    disease_prediction, disease_probability = classify_image(task.input_path)
     
     
     new_task = TaskModel(
-        id= task.input_path.split("/")[-1].split(".")[0],
+        id= task.input_path.split(".")[0],
         name = task.name,
         time_stamp = datetime.now(),
         user_email = task.user_email,

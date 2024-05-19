@@ -1,6 +1,6 @@
 from fastapi import FastAPI, status, Request
 from fastapi.responses import RedirectResponse, JSONResponse
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi_jwt_auth import AuthJWT
 from fastapi_jwt_auth.exceptions import AuthJWTException
 from fastapi.staticfiles import StaticFiles

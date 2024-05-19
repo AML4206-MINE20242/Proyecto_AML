@@ -55,12 +55,10 @@ const PredictionComponent = () => {
             }
 
             const uploadData = await uploadResponse.json();
-            const uploadDataPath = await `uploads/${uploadData.filename}`;
-            console.log(uploadDataPath);
 
             // Now send the required data to another endpoint
             const taskResponse = await fetch(
-                `https://back-zu3yqmmklq-uc.a.run.app/tasks/`,
+                `http://localhost:8000/tasks/`,
                 {
                     method: "POST",
                     headers: {
@@ -70,7 +68,7 @@ const PredictionComponent = () => {
                     body: JSON.stringify({
                         name: taskname,
                         user_email: email,
-                        input_path: uploadDataPath,
+                        input_path: uploadData.filename,
                     }),
                 }
             );

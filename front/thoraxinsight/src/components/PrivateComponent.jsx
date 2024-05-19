@@ -4,7 +4,6 @@ import HistoricComponent from './HistoricComponent';
 
 const PrivateRoute = ({ children }) => {
   const isSigned = localStorage.getItem('signedIn') === 'true'; // Check the localStorage value
-  console.log('signedIn:', isSigned);
 
   return isSigned ? <HistoricComponent /> : <MainPageBlockerComponent />;
 };

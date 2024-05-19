@@ -71,16 +71,19 @@ const YourImages = () => {
                                         Name
                                     </TableCell>
                                     <TableCell sx={{ color: "text.primary" }}>
-                                        Status
-                                    </TableCell>
-                                    <TableCell sx={{ color: "text.primary" }}>
                                         Timestamp
                                     </TableCell>
                                     <TableCell sx={{ color: "text.primary" }}>
                                         Prediction
                                     </TableCell>
                                     <TableCell sx={{ color: "text.primary" }}>
+                                        Probability
+                                    </TableCell>
+                                    <TableCell sx={{ color: "text.primary" }}>
                                         Image
+                                    </TableCell>
+                                    <TableCell sx={{ color: "text.primary" }}>
+                                        Heatmap
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
@@ -91,11 +94,6 @@ const YourImages = () => {
                                             sx={{ color: "text.secondary" }}
                                         >
                                             {task.name}
-                                        </TableCell>
-                                        <TableCell
-                                            sx={{ color: "text.secondary" }}
-                                        >
-                                            {task.status}
                                         </TableCell>
                                         <TableCell
                                             sx={{ color: "text.secondary" }}
@@ -112,8 +110,25 @@ const YourImages = () => {
                                         <TableCell
                                             sx={{ color: "text.secondary" }}
                                         >
+                                            {task.probability}
+                                        </TableCell>
+                                        <TableCell
+                                            sx={{ color: "text.secondary" }}
+                                        >
                                             <img
-                                                src={`https://back-zu3yqmmklq-uc.a.run.app/${task.input_path}`}
+                                                src={`https://back-zu3yqmmklq-uc.a.run.app/uploads/${task.input_path}`}
+                                                alt={task.name}
+                                                style={{
+                                                    width: "100px",
+                                                    height: "100px",
+                                                }}
+                                            />
+                                        </TableCell>
+                                        <TableCell
+                                            sx={{ color: "text.secondary" }}
+                                        >
+                                            <img
+                                                src={`https://back-zu3yqmmklq-uc.a.run.app/uploads_reason/${task.input_path}`}
                                                 alt={task.name}
                                                 style={{
                                                     width: "100px",
