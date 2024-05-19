@@ -9,7 +9,6 @@ import torchvision
 from collections import OrderedDict
 import sys 
 sys.path.append('../')
-from worker.config import model_config
 from worker.gradcam import GradCAM, plot_gradcam
 #####################################################################################################
 # Model
@@ -52,7 +51,7 @@ def remove_module_prefix(state_dict):
 def load_model(model_path,args):
     checkpoint = torch.load(model_path)
 
-    model = DenseNet121(args.num_classes)
+    model = DenseNet121(args["num_classes"])
 
     # Remove 'module.' prefix from state dict keys
     model_state_dict = remove_module_prefix(checkpoint['state_dict'])
@@ -66,7 +65,7 @@ def load_model(model_path,args):
 # Function to preprocess the input image
 def preprocess_image(image_path,args):
     transform = transforms.Compose([
-        transforms.Resize((args.img_size, args.img_size)),
+        transforms.Resize((args["img_size"], args["img_size"])),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Assuming same normalization as during training
     ])
@@ -102,8 +101,14 @@ def run_demo(image_path, model_path, class_names,args,input_file):
 ###############################################################################
 def classify_image(input_file):
     name_image = "../back/uploads/" + input_file
-    args = model_config()
-    class_names = args.class_names
+    args = {
+    'no_cuda': False,
+    'img_size': 224,
+    'num_classes': 5,
+    'class_names': ['No Finding','Cardiomegaly', 'Edema', 'Pneumothorax', 'Pleural Effusion']}
+    class_names = args["class_names"]
     model_path = "m-epoch_FL3.pth.tar"
     output_target, probablity = run_demo(name_image, model_path, class_names,args,input_file)
     return output_target, probablity
+
+classify_image("view1_frontal.jpg")
