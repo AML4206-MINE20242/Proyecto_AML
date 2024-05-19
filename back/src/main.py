@@ -3,12 +3,14 @@ from fastapi.responses import RedirectResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_jwt_auth import AuthJWT
 from fastapi_jwt_auth.exceptions import AuthJWTException
+from fastapi.staticfiles import StaticFiles
 import sys
 sys.path.append('../')
 from back.src.config.settings import Settings
 from back.src.routers import user, task, file
 from back.src.config.db_config import engine, Base
 from back.src.config.settings import AuthSettings
+
 
 
 settings = Settings()
@@ -31,6 +33,7 @@ app.include_router(user.router)
 app.include_router(task.router)
 app.include_router(file.router)
 
+app.mount("/uploads", StaticFiles(directory="./uploads"), name="uploads")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
