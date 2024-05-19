@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Body, Depends, File, UploadFile
+from fastapi import APIRouter, Body, Depends, File, Query, UploadFile
 from fastapi_jwt_auth import AuthJWT
 from fastapi.security import HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
@@ -21,8 +21,7 @@ router = APIRouter(
 
 
 @router.get("/", response_model=List[TaskRead], status_code=200)
-def get_tasks_by_user_email(email_data: dict = Body(...), db: Session = Depends(get_db), token: HTTPAuthorizationCredentials | None = Depends(get_bearer_token), Authorize: AuthJWT = Depends()):
-    email = email_data['email']
+def get_tasks_by_user_email(email: str = Query(...), db: Session = Depends(get_db), token: HTTPAuthorizationCredentials | None = Depends(get_bearer_token), Authorize: AuthJWT = Depends()):
     authorized_user_email(Authorize, email)
     return user_task_service.get_tasks_by_user_email(db, Authorize)
 

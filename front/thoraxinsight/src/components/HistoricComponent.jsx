@@ -25,16 +25,13 @@ const YourImages = () => {
 
             try {
                 const response = await fetch(
-                    `https://back-zu3yqmmklq-uc.a.run.app/tasks/`,
+                    `https://back-zu3yqmmklq-uc.a.run.app/tasks?email=${email}`,
                     {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`,
                         },
-                        body: JSON.stringify({
-                            email: email,
-                        }),
                     }
                 );
 
