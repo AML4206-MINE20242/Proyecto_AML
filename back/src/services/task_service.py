@@ -29,8 +29,7 @@ def create_task(db: Session, task: TaskCreate) -> TaskRead:
     if not user:
         raise HTTPException(status_code= 404, detail="User email does not exist")
     
-    #TODO
-    disease_prediction = "None"
+    disease_prediction, disease_probability = classify_image(task.input_path)
     
     new_task = TaskModel(
         id=str(uuid.uuid4()),
@@ -38,6 +37,7 @@ def create_task(db: Session, task: TaskCreate) -> TaskRead:
         time_stamp = datetime.now(),
         user_email = task.user_email,
         prediction = disease_prediction,
+        probability = disease_probability,
         input_path = task.input_path
     )
 
@@ -45,8 +45,6 @@ def create_task(db: Session, task: TaskCreate) -> TaskRead:
     db.commit()
     db.refresh(new_task)
 
-    #TODO
-    #os.remove()
     return new_task
 
 

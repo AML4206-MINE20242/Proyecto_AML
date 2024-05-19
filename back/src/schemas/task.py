@@ -28,6 +28,7 @@ class TaskRead(TaskBase):
     status: TaskStatus
     time_stamp: datetime
     prediction: str
+    probability: float
 
     class Config:
         orm_mode = True
@@ -39,6 +40,7 @@ class TaskRead(TaskBase):
                 "id": "4f21a77d-b8fa-47bb-8df6-b772a635bc19",
                 "status": "UPLOADED",
                 "time_stamp": "2021-07-07T00:00:00",
-                "prediction": "Edema"
+                "prediction": "Edema",
+                "probability": 0.9
             }
         }

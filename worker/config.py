@@ -13,6 +13,6 @@ def model_config():
                         help='number of classes in the dataset (default: 5)')
     parser.add_argument('--class-names',nargs="*", type= str, default=['No Finding','Cardiomegaly', 'Edema', 'Pneumothorax', 'Pleural Effusion'],
                         help='names of the classes in the dataset (default: CheXpert class names)')
-    args = parser.parse_args()
+    args, unknown = parser.parse_known_args()
 
     return args

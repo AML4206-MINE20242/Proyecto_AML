@@ -4,11 +4,13 @@
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
-from config import model_config
 import torch.nn as nn
 import torchvision
-from gradcam import GradCAM, plot_gradcam
 from collections import OrderedDict
+import sys 
+sys.path.append('../')
+from worker.config import model_config
+from worker.gradcam import GradCAM, plot_gradcam
 #####################################################################################################
 # Model
 #####################################################################################################

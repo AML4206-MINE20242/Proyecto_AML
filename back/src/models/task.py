@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, String, Integer, DateTime, Enum, Boolean
+from sqlalchemy import Column, Float, ForeignKey, String, Integer, DateTime, Enum, Boolean
 from sqlalchemy.orm import relationship
 import enum
 import sys
@@ -18,6 +18,7 @@ class Task(Base):
     time_stamp = Column(DateTime)
     prediction = Column(String)
     input_path = Column(String)
+    probability = Column(Float)
 
     user_email = Column(String, ForeignKey("users.email"))
 
