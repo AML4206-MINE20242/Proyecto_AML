@@ -105,3 +105,5 @@ def classify_image(input_file):
     model_path = "m-epoch_FL3.pth.tar"
     output_target, probablity = run_demo(name_image, model_path, class_names,args,input_file)
     return output_target, probablity
+
+classify_image("view1_frontal.jpg")
