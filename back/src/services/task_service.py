@@ -32,7 +32,7 @@ def create_task(db: Session, task: TaskCreate) -> TaskRead:
     disease_prediction, disease_probability = classify_image(task.input_path)
     
     new_task = TaskModel(
-        id=str(uuid.uuid4()),
+        id= task.input_path.split("/")[0],
         name = task.name,
         time_stamp = datetime.now(),
         user_email = task.user_email,
@@ -50,6 +50,8 @@ def create_task(db: Session, task: TaskCreate) -> TaskRead:
 
 def delete_task(db: Session, task_id: str) -> TaskRead:
     task = get_task_by_id(db, task_id)
+    os.remove("uploads/" + task.input_path)
+    os.remove("uploads_reason/" + task.input_path)
     db.delete(task)
     db.commit()
 

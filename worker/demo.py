@@ -49,7 +49,12 @@ def remove_module_prefix(state_dict):
 #####################################################################################################
 
 def load_model(model_path,args):
-    checkpoint = torch.load(model_path)
+    if torch.cuda.is_available():
+        checkpoint = torch.load(model_path)
+    else:
+        # If CUDA is not available, load the model onto the CPU
+        checkpoint = torch.load(model_path, map_location=torch.device('cpu'))
+    
 
     model = DenseNet121(args["num_classes"])
 
@@ -102,13 +107,12 @@ def run_demo(image_path, model_path, class_names,args,input_file):
 def classify_image(input_file):
     name_image = "../back/uploads/" + input_file
     args = {
-    'no_cuda': False,
+    'no_cuda': True,
     'img_size': 224,
     'num_classes': 5,
     'class_names': ['No Finding','Cardiomegaly', 'Edema', 'Pneumothorax', 'Pleural Effusion']}
     class_names = args["class_names"]
-    model_path = "m-epoch_FL3.pth.tar"
+    model_path = "../worker/m-epoch_FL3.pth.tar"
     output_target, probablity = run_demo(name_image, model_path, class_names,args,input_file)
     return output_target, probablity
 
-classify_image("view1_frontal.jpg")

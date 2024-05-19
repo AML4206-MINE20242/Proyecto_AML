@@ -75,25 +75,25 @@ def plot_gradcam(image, dense_cam, filename):
     }
 
     plt.style.use('seaborn-notebook')
-    fig = plt.figure(figsize=(8, 4))
+    # fig = plt.figure(figsize=(8, 4))
 
     
-    for i, (name, img) in enumerate(name_dict.items()):
-        ax = fig.add_subplot(1, 2, i+1, xticks=[], yticks=[])
-        if i:
-            img = img[:, :, ::-1]
-        ax.imshow(img)
-        ax.set_xlabel(name)
+    # for i, (name, img) in enumerate(name_dict.items()):
+    #     ax = fig.add_subplot(1, 2, i+1, xticks=[], yticks=[])
+    #     if i:
+    #         img = img[:, :, ::-1]
+    #     ax.imshow(img)
+    #     ax.set_xlabel(name)
 
-    fig.suptitle(
-        'Localization with Gradient based Class Activation Maps', fontsize=14
-    )
+    # fig.suptitle(
+    #     'Localization with Gradient based Class Activation Maps', fontsize=14
+    # )
     #plt.tight_layout()
     #fig.savefig(filename +'.png')
     #plt.show()
     #plt.close()
 
-    fig2 = plt.figure()
+    #fig2 = plt.figure()
     plt.imsave("../back/uploads_reason/"+filename, name_dict['GradCAM (DenseNet-121)'][:, :, ::-1])
 
     
