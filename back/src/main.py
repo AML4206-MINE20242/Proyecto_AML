@@ -1,6 +1,6 @@
 from fastapi import FastAPI, status, Request
 from fastapi.responses import RedirectResponse, JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from fastapi_jwt_auth import AuthJWT
 from fastapi_jwt_auth.exceptions import AuthJWTException
 from fastapi.staticfiles import StaticFiles
@@ -34,6 +34,7 @@ app.include_router(task.router)
 app.include_router(file.router)
 
 app.mount("/uploads", StaticFiles(directory="./uploads"), name="uploads")
+app.mount("/uploads_reason", StaticFiles(directory="./uploads_reason"), name="uploads_reason")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

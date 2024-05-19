@@ -33,7 +33,7 @@ def create_task(db: Session, task: TaskCreate) -> TaskRead:
     
     
     new_task = TaskModel(
-        id= task.input_path.split("/")[0],
+        id= task.input_path.split("/")[-1].split(".")[0],
         name = task.name,
         time_stamp = datetime.now(),
         user_email = task.user_email,
