@@ -10,7 +10,7 @@ sys.path.append('../')
 from back.src.schemas.task import TaskCreate, TaskRead
 from back.src.services.user_service import get_user_by_email
 from back.src.models.task import Task as TaskModel
-
+from worker.demo import classify_image
 
 def get_task_by_id(db: Session, task_id: str) -> TaskRead:
     task = db.query(TaskModel).filter(TaskModel.id == task_id).first()
