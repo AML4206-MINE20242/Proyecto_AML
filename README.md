@@ -110,6 +110,7 @@ This will start both the backend service and the frontend inside Docker containe
 By following these steps, you should have the entire project up and running, allowing you to interact with the backend API, use the frontend interface, and train the neural network model.
 
 #### Model Training
+
 - The chosen model for deployment is DenseNet121 from Torch library. To train the model follow the next steps:
 1. **Navigate to the `training` directory:**
    ```bash
