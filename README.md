@@ -50,8 +50,6 @@ Below, you will find detailed instructions on how to set up and run each part of
    The backend server will be running at `http://127.0.0.1:8000`.
 
 ### Frontend (Folder: `front/thoraxinsight`)
-> [!IMPORTANT]  
-> For know the frontend wont work in local because the fetch functions are pointing towards the cloud depployment which at the moment is down.
 
 1. **Navigate to the `front/thoraxinsight` directory:**
    ```bash
@@ -110,3 +108,27 @@ For a containerized deployment, you can use the provided `Dockerfile` for backen
 This will start both the backend service and the frontend inside Docker containers. Ensure the frontend is configured to communicate with the backend via the appropriate API endpoints.
 
 By following these steps, you should have the entire project up and running, allowing you to interact with the backend API, use the frontend interface, and train the neural network model.
+
+#### Model Training
+- The chosen model for deployment is DenseNet121 from Torch library. To train the model follow the next steps:
+1. **Navigate to the `training` directory:**
+   ```bash
+   cd training
+   ```
+2. **Enter to the dataset folder where CheXPert dataset will be located**
+   ```bash
+   cd CheXpert-v1.0-small
+   ```
+3. Download the CheXPert database from the following [link](https://uniandes-my.sharepoint.com/:u:/g/personal/s_rodriguez47_uniandes_edu_co/EXXVAEYAuIVFhGlSGKw0zVsB0BfaCdLAFEcdXlDLjp0IAw?e=5uoDw2)
+4. Unzip the folder to obtain the dataset
+```bash
+unzip CheXpert-v1.0-small.zip
+```
+6. Locate yourself at the level of the folder training
+```bash
+cd ..
+```
+7. Run the main3.py
+```bash
+python main3.py
+```
