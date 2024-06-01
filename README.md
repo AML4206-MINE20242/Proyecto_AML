@@ -50,6 +50,8 @@ Below, you will find detailed instructions on how to set up and run each part of
    The backend server will be running at `http://127.0.0.1:8000`.
 
 ### Frontend (Folder: `front/thoraxinsight`)
+> [!IMPORTANT]  
+> For know the frontend wont work in local because the fetch functions are pointing towards the cloud depployment which at the moment is down.
 
 1. **Navigate to the `front/thoraxinsight` directory:**
    ```bash
