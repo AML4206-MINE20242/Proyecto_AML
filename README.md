@@ -119,16 +119,16 @@ By following these steps, you should have the entire project up and running, all
    ```bash
    cd CheXpert-v1.0-small
    ```
-3. Download the CheXPert database from the following [link](https://uniandes-my.sharepoint.com/:u:/g/personal/s_rodriguez47_uniandes_edu_co/EXXVAEYAuIVFhGlSGKw0zVsB0BfaCdLAFEcdXlDLjp0IAw?e=5uoDw2)
-4. Unzip the folder to obtain the dataset
-```bash
-unzip CheXpert-v1.0-small.zip
-```
-6. Locate yourself at the level of the folder training
-```bash
-cd ..
-```
-7. Run the main3.py
-```bash
-python main3.py
-```
+3. **Download the CheXPert database from the following [link](https://uniandes-my.sharepoint.com/:u:/g/personal/s_rodriguez47_uniandes_edu_co/EXXVAEYAuIVFhGlSGKw0zVsB0BfaCdLAFEcdXlDLjp0IAw?e=5uoDw2)**
+4. **Unzip the folder to obtain the dataset**
+    ```bash
+    unzip CheXpert-v1.0-small.zip
+    ```
+6. **Locate yourself at the level of the folder training**
+    ```bash
+    cd ..
+    ```
+7. **Run the main3.py**
+    ```bash
+    python main3.py
+    ```
